@@ -1,0 +1,68 @@
+From b09a508a1acaad354a19e6d4c35f085eda65d6f1 Mon Sep 17 00:00:00 2001
+From: lhdjply <lhdjply@126.com>
+Date: Wed, 12 Nov 2025 16:55:03 +0800
+Subject: [PATCH] fix golang error
+
+Signed-off-by: lhdjply <lhdjply@126.com>
+---
+ accounts1/utils.go              | 2 +-
+ bin/user-config/config_datas.go | 2 +-
+ inputdevices1/utils.go          | 2 +-
+ service_trigger/service.go      | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/accounts1/utils.go b/accounts1/utils.go
+index 7482274..b6e7725 100644
+--- a/accounts1/utils.go
++++ b/accounts1/utils.go
+@@ -184,7 +184,7 @@ func checkAuth(actionId string, sysBusName string) error {
+ 				}
+ 			}
+ 		}
+-		return fmt.Errorf(ErrCodeAuthFailed.String())
++		return fmt.Errorf("%s", ErrCodeAuthFailed.String())
+ 	}
+ 	return nil
+ }
+diff --git a/bin/user-config/config_datas.go b/bin/user-config/config_datas.go
+index 4365c1c..91eb861 100644
+--- a/bin/user-config/config_datas.go
++++ b/bin/user-config/config_datas.go
+@@ -236,7 +236,7 @@ func getDefaultLang() string {
+ func doAction(cmd string) error {
+ 	out, err := exec.Command("/bin/sh", "-c", cmd).CombinedOutput()
+ 	if err != nil {
+-		return fmt.Errorf(string(out))
++		return fmt.Errorf("%s", string(out))
+ 	}
+ 
+ 	return nil
+diff --git a/inputdevices1/utils.go b/inputdevices1/utils.go
+index 99c7dfa..d9626c4 100644
+--- a/inputdevices1/utils.go
++++ b/inputdevices1/utils.go
+@@ -149,7 +149,7 @@ func isItemInList(item string, list []string) bool {
+ func doAction(cmd string) error {
+ 	out, err := exec.Command("/bin/sh", "-c", cmd).CombinedOutput()
+ 	if err != nil {
+-		return fmt.Errorf(string(out))
++		return fmt.Errorf("%s", string(out))
+ 	}
+ 	return nil
+ }
+diff --git a/service_trigger/service.go b/service_trigger/service.go
+index 4a0b4be..db6697a 100644
+--- a/service_trigger/service.go
++++ b/service_trigger/service.go
+@@ -56,7 +56,7 @@ func (service *Service) getDBusMatchRule() string {
+ 
+ func (service *Service) check() error {
+ 	if service.Monitor.Type != "DBus" {
+-		return fmt.Errorf("unknown Monitor.Type %q" + service.Monitor.Type)
++		return fmt.Errorf("unknown Monitor.Type %q", service.Monitor.Type)
+ 	}
+ 
+ 	if service.Monitor.Type == "DBus" {
+-- 
+2.50.1
+

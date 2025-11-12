@@ -1,3 +1,9 @@
+dde-daemon (6.1.61-0depian1) unstable; urgency=medium
+
+  * fix golang error
+
+ -- lhdjply <lhdjply@126.com>  Wed, 12 Nov 2025 16:41:46 +0800
+
 dde-daemon (6.1.61) unstable; urgency=medium
 
   * fix: resolve crash from dconfig type mismatch
